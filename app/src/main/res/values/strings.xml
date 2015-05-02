@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FindME</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_first_class">FirstClass</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gpstracker">GPSTracker</string>
+    <string name="title_activity_find_me">FindMe</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_binding">BindingActivity</string>
+    <string name="title_activity_passage">Passage</string>
+
+</resources>

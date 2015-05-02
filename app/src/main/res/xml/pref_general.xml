@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <EditTextPreference
+        android:key="Favourite_Number"
+        android:title="@string/pref_Favourite_Number"
+        android:defaultValue="236664801"
+        android:selectAllOnFocus="true"
+        android:inputType="number|phone"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="Diameter_Zone"
+        android:title="@string/pref_Diameter_Zone"
+        android:defaultValue="50"
+        android:selectAllOnFocus="true"
+        android:inputType="number"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+
+
+</PreferenceScreen>

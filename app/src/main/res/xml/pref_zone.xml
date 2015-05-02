@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <EditTextPreference
+        android:key="Latitude"
+        android:title="@string/pref_Latitude"
+        android:defaultValue="34.7262714"
+        android:selectAllOnFocus="true"
+        android:inputType="numberDecimal"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="Longitude"
+        android:title="@string/pref_Longitude"
+        android:defaultValue="10.71665168420000002"
+        android:selectAllOnFocus="true"
+        android:inputType="numberDecimal"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+</PreferenceScreen>
