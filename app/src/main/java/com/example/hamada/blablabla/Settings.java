@@ -39,11 +39,7 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
      * shown on tablets.
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
-    double LatitudePlace ;
-    double LongitudePlace ;
-    String Favourite_Number ;
-    int Diameter_Zone ;
-    int Time_sending ;
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -83,24 +79,7 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
-        try {
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Favourite_Number)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Diameter_Zone)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Latitude)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Longitude)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Time_sending)));
-        }catch(NullPointerException e){
-            LatitudePlace = 34.7262714;
-            LongitudePlace = 10.71665168420000002;
-            Favourite_Number =  "23664801";
-            Diameter_Zone =50;
-            Time_sending = 60;
 
-
-
-
-
-        }
     }
 
     /**
@@ -207,7 +186,21 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        return false;
+        String stringValue= newValue.toString();
+
+        if (preference instanceof ListPreference) {
+            // For list preferences, look up the correct display value in
+            // the preference's 'entries' list.
+            ListPreference listPreference = (ListPreference) preference;
+            int index = listPreference.findIndexOfValue(stringValue);
+
+            // Set the summary to reflect the new value.
+            preference.setSummary(
+                    index >= 0
+                            ? listPreference.getEntries()[index]
+                            : null);}
+        else       preference.setSummary(stringValue);
+            return true;
     }
 
     /**
@@ -220,13 +213,20 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_headers);
+            addPreferencesFromResource(R.xml.pref_zone);
+            addPreferencesFromResource(R.xml.pref_data_sync);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Favourite_Number)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Diameter_Zone)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Latitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Longitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Time_sending)));
+
         }
     }
 
@@ -240,6 +240,20 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_zone);
+            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_headers);
+            addPreferencesFromResource(R.xml.pref_zone);
+            addPreferencesFromResource(R.xml.pref_data_sync);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Favourite_Number)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Diameter_Zone)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Latitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Longitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Time_sending)));
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -258,13 +272,26 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_headers);
+            addPreferencesFromResource(R.xml.pref_zone);
             addPreferencesFromResource(R.xml.pref_data_sync);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Favourite_Number)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Diameter_Zone)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Latitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Longitude)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_Time_sending)));
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
         }
     }
 }

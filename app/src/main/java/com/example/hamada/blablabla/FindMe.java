@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.app.ActionBar;
 
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +19,13 @@ import android.widget.Button;
 
 public class FindMe extends ActionBarActivity implements View.OnClickListener{
 SendService mService;
-    //Button get;
+    GlobalVariables a;
+    GPSTracker gps;
+    double LatitudePlace;
+    double LongitudePlace;
+    String Favourite_Number;
+    int Diameter_Zone;
+    int Time_sending;
 
     boolean mBound;
     @Override
@@ -27,12 +34,44 @@ SendService mService;
         setContentView(R.layout.activity_binding);
 
 
+        gps = new GPSTracker(getApplicationContext());
+
+
+
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            LatitudePlace=Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
+            LongitudePlace=Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
+            Favourite_Number= prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
+            Diameter_Zone=Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
+            Time_sending=Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } finally {
+
+            LatitudePlace = 34.7262714;
+            LongitudePlace = 10.71665168420000002;
+            Favourite_Number = "23664801";
+            Diameter_Zone = 50;
+            Time_sending = 60;
+        }
+
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        LatitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
+        LongitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
+        Favourite_Number = prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
+        Diameter_Zone = Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
+        Time_sending = Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
+
+
         Intent i =new Intent(this,SendService.class);
         bindService(i,mConnection, Context.BIND_AUTO_CREATE);
 
@@ -81,17 +120,19 @@ SendService mService;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             item.setVisible(true);
-            startActivity(new Intent (getApplicationContext(),Settings.class));
 
+            startActivity(new Intent (getApplicationContext(),Settings.class));
+            return true;
         }
         if (id == R.id.action_refresh) {
             item.setVisible(true);
-            double LatitudePlace =Double.parseDouble(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(getString(R.string.pref_Latitude), "34.7262714"));
-            double LongitudePlace = Double.parseDouble( PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
-            String Favourite_Number =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(getString(R.string.pref_Favourite_Number), "23664801");
-            int Diameter_Zone = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(getString(R.string.pref_Diameter_Zone), "50"));
-            int Time_sending = Integer.parseInt( PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(getString(R.string.pref_Time_sending), "60"));
-
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            LatitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
+            LongitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
+            Favourite_Number = prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
+            Diameter_Zone = Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
+            Time_sending = Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
+            return true;
 
         }
 

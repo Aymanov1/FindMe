@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hamada.blablabla" >
+    package="com.example.hamada.blablabla">
 
     <!--
  The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -28,12 +28,13 @@
         android:required="false" />
 
 
-
     <application
+        android:name=".GlobalVariables"
         android:allowBackup="true"
         android:icon="@drawable/findme"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        >
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -46,7 +47,7 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".FindMe"
-            android:label="FindMe" >
+            android:label="FindMe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,32 +57,26 @@
 
         <receiver
             android:name=".AlarmReceiver"
-            android:exported="false" >
-        </receiver>
+            android:exported="false"></receiver>
 
         <activity
             android:name=".GPSTracker"
-            android:label="@string/title_activity_gpstracker" >
-        </activity>
+            android:label="@string/title_activity_gpstracker"></activity>
         <activity
             android:name=".AlarmReceiver"
-            android:label="@string/title_activity_alarm" >
-        </activity>
+            android:label="@string/title_activity_alarm"></activity>
 
         <service
             android:name=".SendService"
             android:enabled="true"
-            android:exported="true" >
-        </service>
+            android:exported="true"></service>
 
         <activity
             android:name=".Settings"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
         <activity
             android:name=".Passage"
-            android:label="@string/title_activity_passage" >
-        </activity>
+            android:label="@string/title_activity_passage"></activity>
     </application>
 
 </manifest>
