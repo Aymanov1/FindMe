@@ -1,14 +1,12 @@
 package com.example.hamada.blablabla;
 
 
-import android.content.Intent;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -117,19 +115,17 @@ else if(networkIsEnabled){locationManager.requestLocationUpdates(LocationManager
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-       // Toast.makeText(this, "status changed", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Toast.makeText(this, "provider enabled", Toast.LENGTH_SHORT).show();
+
 
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        Toast.makeText(this, "provider disabled", Toast.LENGTH_SHORT).show();
 
     }
 

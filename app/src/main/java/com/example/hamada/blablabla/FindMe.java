@@ -4,58 +4,22 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.app.ActionBar;
-
-import android.content.SharedPreferences;
-import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 
-public class FindMe extends ActionBarActivity implements View.OnClickListener{
-SendService mService;
-    GlobalVariables a;
-    GPSTracker gps;
-    double LatitudePlace;
-    double LongitudePlace;
-    String Favourite_Number;
-    int Diameter_Zone;
-    int Time_sending;
-
+public class FindMe extends ActionBarActivity implements View.OnClickListener {
+    SendService mService;
     boolean mBound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_binding);
-
-
-        gps = new GPSTracker(getApplicationContext());
-
-
-
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            LatitudePlace=Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
-            LongitudePlace=Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
-            Favourite_Number= prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
-            Diameter_Zone=Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
-            Time_sending=Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } finally {
-
-            LatitudePlace = 34.7262714;
-            LongitudePlace = 10.71665168420000002;
-            Favourite_Number = "23664801";
-            Diameter_Zone = 50;
-            Time_sending = 60;
-        }
-
 
 
     }
@@ -63,17 +27,8 @@ SendService mService;
     @Override
     protected void onStart() {
         super.onStart();
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        LatitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
-        LongitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
-        Favourite_Number = prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
-        Diameter_Zone = Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
-        Time_sending = Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
-
-
-        Intent i =new Intent(this,SendService.class);
-        bindService(i,mConnection, Context.BIND_AUTO_CREATE);
+        Intent i = new Intent(this, SendService.class);
+        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
     }
 
@@ -81,23 +36,25 @@ SendService mService;
     protected void onStop() {
         super.onStop();
 
-        if (mBound){
+        if (mBound) {
 
             unbindService(mConnection);
-            mBound=false;
+            mBound = false;
         }
     }
-    private ServiceConnection mConnection =new ServiceConnection(){
+
+    private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            SendService.LocalBinder binder =(SendService.LocalBinder) service;
+            SendService.LocalBinder binder = (SendService.LocalBinder) service;
             mService = binder.getService();
-            mBound= true;
+            mBound = true;
             mService.getSituation();
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName name) {mBound=false;
+        public void onServiceDisconnected(ComponentName name) {
+            mBound = false;
 
         }
     };
@@ -121,23 +78,20 @@ SendService mService;
         if (id == R.id.action_settings) {
             item.setVisible(true);
 
-            startActivity(new Intent (getApplicationContext(),Settings.class));
-            return true;
+
         }
         if (id == R.id.action_refresh) {
             item.setVisible(true);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            LatitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Latitude), "34.7262714"));
-            LongitudePlace = Double.parseDouble(prefs.getString(getString(R.string.pref_Longitude), "10.71665168420000002"));
-            Favourite_Number = prefs.getString(getString(R.string.pref_Favourite_Number), "23664801");
-            Diameter_Zone = Integer.parseInt(prefs.getString(getString(R.string.pref_Diameter_Zone), "50"));
-            Time_sending = Integer.parseInt(prefs.getString(getString(R.string.pref_Time_sending), "60"));
+
+            // stopIntent(i)
+
             return true;
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onClick(View v) {
